@@ -1,16 +1,16 @@
 package co.edu.cue;
 
 public class Objeto  {
-    private String codigo;
+    private double codigo;
     private String nombre;
     private int unidadesDisp;
-    private String estado;
+    private boolean estado;
     private double precio;
 
     public Objeto() {
     }
 
-    public Objeto(String codigo, String nombre, int unidadesDisp, String estado, double precio) {
+    public Objeto(double codigo, String nombre, int unidadesDisp, boolean estado, double precio) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.unidadesDisp = unidadesDisp;
@@ -18,11 +18,11 @@ public class Objeto  {
         this.precio = precio;
     }
 
-    public String getCodigo() {
+    public double getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(String codigo) {
+    public void setCodigo(double codigo) {
         this.codigo = codigo;
     }
 
@@ -42,11 +42,11 @@ public class Objeto  {
         this.unidadesDisp = unidadesDisp;
     }
 
-    public String getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

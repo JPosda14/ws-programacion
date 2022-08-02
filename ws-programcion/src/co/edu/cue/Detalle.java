@@ -5,10 +5,16 @@ public class Detalle {
     private int Unidadesprestada;
     private double subtotal;
 
+    private int diasolicitao;
+
+    private int diastrans;
+
     public Detalle() {
     }
 
-    public Detalle(Objeto objeto, int unidadesprestada) {
+    public Detalle(Objeto objeto, int unidadesprestada,int diasolicitao, int diastrans) {
+        this.diasolicitao = diasolicitao;
+        this.diastrans = diastrans;
         this.objeto = objeto;
        if (objeto.getUnidadesDisp()>unidadesprestada){
            Unidadesprestada = unidadesprestada;
@@ -38,5 +44,21 @@ public class Detalle {
 
     public void setSubtotal(int subtotal) {
         this.subtotal = subtotal;
+    }
+
+    public int getDiasolicitao() {
+        return diasolicitao;
+    }
+
+    public void setDiasolicitao(int diasolicitao) {
+        this.diasolicitao = diasolicitao;
+    }
+
+    public int getDiastrans() {
+        return diastrans;
+    }
+
+    public void setDiastrans(int diastrans) {
+        this.diastrans = diastrans;
     }
 }

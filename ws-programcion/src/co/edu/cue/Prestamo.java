@@ -2,24 +2,23 @@ package co.edu.cue;
 
 public class Prestamo {
     private String Codigo;
-    private int diasolicitao;
-    private int diastrans;
+
     private Empleado servicioempleao;
     private Cliente cliente;
     private double valorprestamo;
-    private Detalle detalle;
+    private Detalle detalle[];
+
 
     public Prestamo() {
     }
 
-    public Prestamo(String codigo, int diasolicitao, int diastrans, Empleado servicioempleao, Cliente cliente, double valorprestamo, Detalle detalle) {
+    public Prestamo(String codigo,  Empleado servicioempleao, Cliente cliente, double valorprestamo, Detalle detalle[]) {
         Codigo = codigo;
-        this.diasolicitao = diasolicitao;
-        this.diastrans = diastrans;
         this.servicioempleao = servicioempleao;
         this.cliente = cliente;
         this.valorprestamo = valorprestamo;
         this.detalle = detalle;
+
     }
 
     public String getCodigo() {
@@ -28,22 +27,6 @@ public class Prestamo {
 
     public void setCodigo(String codigo) {
         Codigo = codigo;
-    }
-
-    public int getDiasolicitao() {
-        return diasolicitao;
-    }
-
-    public void setDiasolicitao(int diasolicitao) {
-        this.diasolicitao = diasolicitao;
-    }
-
-    public int getDiastrans() {
-        return diastrans;
-    }
-
-    public void setDiastrans(int diastrans) {
-        this.diastrans = diastrans;
     }
 
     public Empleado getServicioempleao() {
@@ -70,11 +53,11 @@ public class Prestamo {
         this.valorprestamo = valorprestamo;
     }
 
-    public Detalle getDetalle() {
+    public Detalle[] getDetalle() {
         return detalle;
     }
 
-    public void setDetalle(Detalle detalle) {
+    public void setDetalle(Detalle[] detalle) {
         this.detalle = detalle;
     }
 }
