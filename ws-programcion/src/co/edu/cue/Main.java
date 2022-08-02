@@ -51,9 +51,36 @@ public class Main {
                     JOptionPane.showMessageDialog(null,"lo siento no podemos aceptar mas clientes");
                 }
             case 3:
-                /*JOptionPane.showMessageDialog();*/
+                if(listadeObjetos.size()<3){
+                    String nombre=JOptionPane.showInputDialog("Ingresa el nombre del objeto");
+                    String codigo=JOptionPane.showInputDialog("Ingresa el codigo del objeto");
+                    String estado=JOptionPane.showInputDialog("Ingresa el estado del objeto");
+                    double precio = Integer.parseInt(JOptionPane.showInputDialog("Ingresa el precio que va tener el objeto"));
+                }
+            case 4:
+                String code=JOptionPane.showInputDialog("Ingresa tu codigo");
+                int contador =0;
+                for(int i=0;i<listadeObjetos.size();i++){
+                    if(code.equals(listadeObjetos.get(i).getCodigo())){
+                        System.out.println("El objeto consultado es:"+
+                                "\n"+"Nombre:"+ listadeObjetos.get(i).getNombre()+"\n"+"Precio:"+listadeObjetos.get(i).getPrecio()+"\n"+
+                                "Estado:"+listadeObjetos.get(i).getEstado());
+                        break;
+                    }else {
+                        JOptionPane.showMessageDialog(null, "No existe ese codigo");
+                        break;
+                    }
+                }
+            case 5:
+                String objetoAconsultar = JOptionPane.showInputDialog("Ingresa el nombre del objeto");
+                int cantidad =0;
+                Prestamo prestamo = new Prestamo();
+                for (int i=0; i<3;i++){
+                    if(objetoAconsultar.equals(prestamo.getDetalle().getObjeto())){
+                        cantidad++;
+                    }
+                }
+                System.out.println("El objeto esta incluido "+cantidad+" veces en los prestamos");
         }
-        listadempleados.get(0).getCode();
-
     }
 }
