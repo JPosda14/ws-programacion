@@ -81,6 +81,9 @@ public class Main {
                     }
                 }
                 System.out.println("El objeto esta incluido "+cantidad+" veces en los prestamos");
+                switch (OPCION){
+                    case 1:
+                }
         }
     }
 }
