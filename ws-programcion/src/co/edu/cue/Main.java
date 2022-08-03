@@ -7,6 +7,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        List <Prestamo> listadePrestamos = new ArrayList<>();
         List<Objeto> listadeObjetos = new ArrayList<>();
         Objeto objeto1 = new Objeto(1111, "Televisor", 5, true, 30000);
         Objeto objeto2 = new Objeto(2222, "Lavadora", 3, true, 50000);
@@ -29,6 +30,7 @@ public class Main {
                 "\n"+"3: Pc"));*/
         int opcion;
         int opcionProductos;
+
         do {
             opcion = JOptionPane.showOptionDialog(
                     null, "Ingrese lo que quiere hacer: ", "Selector de opciones", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,    // null para icono por defecto.
@@ -70,47 +72,50 @@ public class Main {
                                 }
                                 break;
                             case 1:
-
+                                String code = JOptionPane.showInputDialog("Ingresa tu codigo");
+                                int contador = 0;
+                                for (int i = 0; i < listadeObjetos.size(); i++) {
+                                    if (code.equals(listadeObjetos.get(i).getCodigo())) {
+                                        System.out.println("El objeto consultado es:" +
+                                                "\n" + "Nombre:" + listadeObjetos.get(i).getNombre() + "\n" + "Precio:" + listadeObjetos.get(i).getPrecio() + "\n" +
+                                                "Estado:" + listadeObjetos.get(i).getEstado());
+                                        break;
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, "No existe ese codigo");
+                                        break;
+                                    }
+                                }
                                 break;
                             case 2:
-
+                                String objetoAconsultar = JOptionPane.showInputDialog("Ingresa el nombre del objeto");
+                                int cantidad = 0;
+                                Prestamo prestamo = new Prestamo();
+                                if (String.valueOf(listadePrestamos.size()) == "null") {
+                                    for (Prestamo prestamoPrin: listadePrestamos) {
+                                        //System.out.println(listadePrestamos.get(j).getDetalle()[1].getObjeto().getNombre());
+                                        Detalle[] detalles = prestamo.getDetalle();
+                                        for (int i = 0; i < 2; i++) {
+                                            if (objetoAconsultar.equals(detalles[i].getObjeto().getNombre())) {
+                                                cantidad++;
+                                            }
+                                        }
+                                    }
+                                    System.out.println("El objeto esta incluido " + cantidad + " veces en los prestamos");
+                                }
                                 break;
                             case 3:
+                                for (int j = 0; j < listadePrestamos.size(); j++) {
+                                    for (int i = 0; i < 2; i++) {
+                                        System.out.println(listadePrestamos.get(j).getDetalle()[1].getObjeto().getUnidadesDisp());
+                                    }
+                                }
                                 break;
-                        }
 
-                    } while (opcionProductos != 4);
-                case 4:
-                    String code = JOptionPane.showInputDialog("Ingresa tu codigo");
-                    int contador = 0;
-                    for (int i = 0; i < listadeObjetos.size(); i++) {
-                        if (code.equals(listadeObjetos.get(i).getCodigo())) {
-                            System.out.println("El objeto consultado es:" +
-                                    "\n" + "Nombre:" + listadeObjetos.get(i).getNombre() + "\n" + "Precio:" + listadeObjetos.get(i).getPrecio() + "\n" +
-                                    "Estado:" + listadeObjetos.get(i).getEstado());
-                            break;
-                        } else {
-                            JOptionPane.showMessageDialog(null, "No existe ese codigo");
-                            break;
-                        }
-                    }
-                case 5:
-                    String objetoAconsultar = JOptionPane.showInputDialog("Ingresa el nombre del objeto");
-                    int cantidad = 0;
-                    Prestamo prestamo = new Prestamo();
-                    for (int i = 0; i < 3; i++) {
-                        if (objetoAconsultar.equals(prestamo.getDetalle().getObjeto())) {
-                            cantidad++;
-                        }
-                    }
-                    System.out.println("El objeto esta incluido " + cantidad + " veces en los prestamos");
-                    int OPCION = 0;
-                    switch (OPCION) {
-                        case 1:
 
-                    }
+                        }
+                        break;
+                    } while (opcionProductos != 4) ;
             }
-        } while (opcion != 4);
-
+        }while (opcion != 4);
     }
 }
