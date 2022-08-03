@@ -8,18 +8,23 @@ public class Detalle {
     private int diasolicitao;
 
     private int diastrans;
+    private int UnidadesDisp;
+
+    public int getUnidadesDisp() {
+        return UnidadesDisp;
+    }
 
     public Detalle() {
     }
 
-    public Detalle(Objeto objeto, int unidadesprestada,int diasolicitao, int diastrans) {
+    public Detalle(Objeto objeto, int unidadesprestada, int diasolicitao, int diastrans, int UnidadesDisp) {
         this.diasolicitao = diasolicitao;
         this.diastrans = diastrans;
         this.objeto = objeto;
-       if (objeto.getUnidadesDisp()>unidadesprestada){
-           Unidadesprestada = unidadesprestada;
-       }
-        this.subtotal = objeto.getPrecio()*unidadesprestada;
+        if (UnidadesDisp > unidadesprestada) {
+            Unidadesprestada = unidadesprestada;
+        }
+        this.subtotal = objeto.getPrecio() * unidadesprestada;
     }
 
     public Objeto getObjeto() {

@@ -10,7 +10,7 @@ public class Objeto  {
     public Objeto() {
     }
 
-    public Objeto(double codigo, String nombre, int unidadesDisp, boolean estado, double precio) {
+    public Objeto(double codigo, String nombre, boolean estado, double precio) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.unidadesDisp = unidadesDisp;
