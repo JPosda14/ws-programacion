@@ -19,9 +19,7 @@ public class Detalle {
         this.diasolicitao = diasolicitao;
        // this.diastrans = diastrans;
         this.objeto = objeto;
-        if (UnidadesDisp > unidadesprestada) {
-            Unidadesprestada = unidadesprestada;
-        }
+        this.Unidadesprestada = unidadesprestada;
         this.subtotal = objeto.getPrecio() * unidadesprestada;
     }
 
