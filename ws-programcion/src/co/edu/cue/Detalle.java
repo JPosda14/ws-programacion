@@ -8,18 +8,16 @@ public class Detalle {
     private int diasolicitao;
 
     private int diastrans;
-    private int UnidadesDisp;
 
-    public int getUnidadesDisp() {
-        return UnidadesDisp;
-    }
+
+
 
     public Detalle() {
     }
 
-    public Detalle(Objeto objeto, int unidadesprestada, int diasolicitao, int diastrans, int UnidadesDisp) {
+    public Detalle(Objeto objeto, int unidadesprestada, int diasolicitao, int UnidadesDisp) {
         this.diasolicitao = diasolicitao;
-        this.diastrans = diastrans;
+       // this.diastrans = diastrans;
         this.objeto = objeto;
         if (UnidadesDisp > unidadesprestada) {
             Unidadesprestada = unidadesprestada;

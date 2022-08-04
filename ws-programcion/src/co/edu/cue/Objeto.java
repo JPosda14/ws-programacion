@@ -6,7 +6,10 @@ public class Objeto  {
     private int unidadesDisp;
     private boolean estado;
     private double precio;
-
+    private int UnidadesDisp;
+    public int getUnidadesDisp() {
+        return UnidadesDisp;
+    }
     public Objeto() {
     }
 

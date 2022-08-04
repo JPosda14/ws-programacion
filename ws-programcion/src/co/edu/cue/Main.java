@@ -8,8 +8,9 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        List <Prestamo> listadePrestamos = new ArrayList<>();
+        List<Prestamo> listadePrestamos = new ArrayList<>();
         List<Objeto> listadeObjetos = new ArrayList<>();
+        List<Detalle> detalleList = new ArrayList<>();
         Objeto objeto1 = new Objeto(1111, "Televisor", true, 30000);
         Objeto objeto2 = new Objeto(2222, "Lavadora", true, 50000);
         Objeto objeto3 = new Objeto(3333, "Pc", true, 45000);
@@ -32,6 +33,10 @@ public class Main {
         int opcion;
         int opcionProductos;
         int opcionObjeto;
+        int opcionPrestamo;
+        int empleadoAtendido;
+        int clientePrestamo;
+        String opciones = "";
         do {
             opcion = JOptionPane.showOptionDialog(
                     null, "Ingrese lo que quiere hacer: ", "Selector de opciones", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,    // null para icono por defecto.
@@ -47,6 +52,7 @@ public class Main {
                         Empleado empleado = new Empleado(code, nombre, correo, añosant);
                         listadempleados.add(empleado);
                     }
+                    break;
                 case 1:
                     if (listadeclientes.size() < 2) {
                         String nombre = JOptionPane.showInputDialog("Ingresa el nombre");
@@ -60,11 +66,12 @@ public class Main {
                     } else {
                         JOptionPane.showMessageDialog(null, "lo siento no podemos aceptar mas clientes");
                     }
+                    break;
                 case 2:
                     do {
                         opcionProductos = JOptionPane.showOptionDialog(
                                 null, "Ingrese lo que quiere hacer: ", "Opciones de productos", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,    // null para icono por defecto.
-                                new Object[]{"Consultar producto por codigo", "Consultar prestamos por nombre", "Consultar cantidad total de unidades prestadas", "Remplazar objeto", "Salir"}, "null");
+                                new Object[]{"Consultar producto por codigo", "Consultar prestamos por codigo", "Consultar cantidad total de unidades prestadas", "Consultar unidades prestadas","Remplazar objeto", "Salir"}, "null");
                         switch (opcionProductos) {
                             case 0:
                                 if (listadeObjetos.size() < 3) {
@@ -77,17 +84,19 @@ public class Main {
                                 }
                                 break;
                             case 1:
-                                String code = JOptionPane.showInputDialog("Ingresa tu codigo");
+                                Double code = Double.parseDouble(JOptionPane.showInputDialog("Ingresa tu codigo"));
                                 int contador = 0;
-                                for (int i = 0; i < listadeObjetos.size(); i++) {
-                                    if (code.equals(listadeObjetos.get(i).getCodigo())) {
-                                        System.out.println("El objeto consultado es:" +
-                                                "\n" + "Nombre:" + listadeObjetos.get(i).getNombre() + "\n" + "Precio:" + listadeObjetos.get(i).getPrecio() + "\n" +
-                                                "Estado:" + listadeObjetos.get(i).getEstado());
+                                int si =0;
+                                for (Objeto objeto : listadeObjetos) {
+                                    if (objeto.getCodigo() == code) {
+                                        JOptionPane.showMessageDialog(null,"El objeto consultado es:" +
+                                                "\n" + "Nombre:" + objeto.getNombre() + "\n" + "Precio:" + objeto.getPrecio() + "\n" +
+                                                "Estado:" + objeto.getEstado());
+                                        si=1;
                                         break;
-                                    } else {
+                                    }
+                                    if(si==0){
                                         JOptionPane.showMessageDialog(null, "No existe ese codigo");
-                                        break;
                                     }
                                 }
                                 break;
@@ -95,77 +104,179 @@ public class Main {
                                 String objetoAconsultar = JOptionPane.showInputDialog("Ingresa el nombre del objeto");
                                 int cantidad = 0;
                                 Prestamo prestamo = new Prestamo();
-                                if (String.valueOf(listadePrestamos.size()) == "null") {
-                                    for (Prestamo prestamoPrin: listadePrestamos) {
+                                if (listadePrestamos.size() != 0) {
+                                    for (Prestamo prestamoPrin : listadePrestamos) {
                                         //System.out.println(listadePrestamos.get(j).getDetalle()[1].getObjeto().getNombre());
-                                        Detalle[] detalles = prestamo.getDetalle();
+                                        List<Detalle> detalles = prestamo.getDetalles();
                                         for (int i = 0; i < 2; i++) {
-                                            if (objetoAconsultar.equals(detalles[i].getObjeto().getNombre())) {
+                                            if (objetoAconsultar.equals(detalles.get(i).getObjeto().getNombre())) {
                                                 cantidad++;
                                             }
                                         }
                                     }
-                                    System.out.println("El objeto esta incluido " + cantidad + " veces en los prestamos");
+                                    JOptionPane.showMessageDialog(null,"El objeto esta incluido " + cantidad + " veces en los prestamos");
+                                }else{
+                                    JOptionPane.showMessageDialog(null,"No hay prestamos");
                                 }
                                 break;
                             case 3:
-                                String opciones="";
-                                for (int i=0;i<listadeObjetos.size();i++){
-                                    opciones+="Nombre: "+listadeObjetos.get(i).getNombre()+" Precio: "+listadeObjetos.get(i).getPrecio()+" Codigo: "+
-                                    listadeObjetos.get(i).getCodigo()+" Estado: "+listadeObjetos.get(i).getEstado()+"\n";
+
+                                for (int i = 0; i < listadeObjetos.size(); i++) {
+                                    opciones += "Nombre: " + listadeObjetos.get(i).getNombre() + " Precio: " + listadeObjetos.get(i).getPrecio() + " Codigo: " +
+                                            listadeObjetos.get(i).getCodigo() + " Estado: " + listadeObjetos.get(i).getEstado() + "\n";
                                 }
                                 opcionObjeto = JOptionPane.showOptionDialog(
-                                        null, opciones+"Que producto desea cambiar: ", "Selector de opciones", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,    // null para icono por defecto.
+                                        null, opciones + "Que producto desea cambiar: ", "Selector de opciones", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,    // null para icono por defecto.
                                         new Object[]{1, 2, 3, "Salir"}, "null");
-                                switch (opcionObjeto){
+                                switch (opcionObjeto) {
                                     case 0:
-                                        reemplazar(0,listadeObjetos);
+                                        reemplazar(0, listadeObjetos);
                                         break;
                                     case 1:
-                                        reemplazar(1,listadeObjetos);
+                                        reemplazar(1, listadeObjetos);
                                         break;
                                     case 2:
-                                        reemplazar(2,listadeObjetos);
+                                        reemplazar(2, listadeObjetos);
                                         break;
                                 }
                                 break;
-
-
+                            case 4:
+                                //Prestamo prestamo = new Prestamo()
+                                int canti = 0;
+                                if (listadePrestamos.size() != 0) {
+                                    for (Prestamo prestam : listadePrestamos) {
+                                        //System.out.println(listadePrestamos.get(j).getDetalle()[1].getObjeto().getNombre());
+                                        List<Detalle> detalles = prestam.getDetalles();
+                                        for (int i = 0; i < detalles.size(); i++) {
+                                            System.out.println("Hay " + canti + " prestadas");
+                                        }
+                                    }
+                                }
+                                break;
                         }
                         break;
-                    } while (opcionProductos != 4) ;
+                    } while (opcionProductos != 4);
+                case 3:
+                    Empleado empleadoAt = new Empleado();
+                    Cliente clienteAt = new Cliente();
+                    String opcionesEC = "";
+                    do {
+                        opcionPrestamo = JOptionPane.showOptionDialog(
+                                null, "Ingrese lo que quiere hacer: ", "Opciones de prestamo", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,    // null para icono por defecto.
+                                new Object[]{"Crear un prestamo", "Consultar prestamo", "Salir"}, "null");
+                        switch (opcionPrestamo) {
+                            case 0:
+                                //Empleado empleado = new Empleado();
+                                //List<Empleado> empleados = prestam.getDetalles();
+                                for (int i = 0; i < listadempleados.size(); i++) {
+                                    opcionesEC += "Nombre: " + listadempleados.get(i).getNombre() + " Code: " + listadempleados.get(i).getCode() + "\n";
+                                }
+                                empleadoAtendido = JOptionPane.showOptionDialog(
+                                        null, opcionesEC + "Que empleado te atendio: ", "Opciones de empleado", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,    // null para icono por defecto.
+                                        new Object[]{1, 2, 3, "Salir"}, "null");
+                                for (Empleado empleado : listadempleados) {
+                                    if (empleado.getCode().equals(listadempleados.get(empleadoAtendido).getCode())) {
+                                        empleadoAt = empleado;
+                                    }
+                                }
+                                opcionesEC = "";
+                                for (int i = 0; i < listadeclientes.size(); i++) {
+                                    opcionesEC += "Documento: " + listadeclientes.get(i).getDocument() + " Nombre : " + listadeclientes.get(i).getName() + "\n";
+                                }
+                                clientePrestamo = JOptionPane.showOptionDialog(
+                                        null, opcionesEC + "Que cliente va a hacer el prestamo: ", "Opciones de empleado", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,    // null para icono por defecto.
+                                        new Object[]{1, 2, 3, "Salir"}, "null");
+                                for (Cliente cliente : listadeclientes) {
+                                    if (cliente.getDocument().equals(listadeclientes.get(clientePrestamo).getDocument())) {
+                                        clienteAt = cliente;
+                                    }
+                                }
+                                crearprestamo( detalleList, listadePrestamos, listadeObjetos, clienteAt, empleadoAt);
+                                break;
+                        }
+                        break;
+                    } while (opcionPrestamo != 4);
             }
-        }while (opcion != 4);
+        } while (opcion != 4);
     }
-    static void reemplazar( int replaceObjec, List<Objeto> listadeObjetos){
+
+    static void reemplazar(int replaceObjec, List<Objeto> listadeObjetos) {
         int estadoUser;
-        boolean estado=true;
+        boolean estado = true;
         String nombre = JOptionPane.showInputDialog("Ingresa el nombre del objeto");
         double codigo = Integer.parseInt(JOptionPane.showInputDialog("Ingresa el codigo del objeto"));
         estadoUser = JOptionPane.showOptionDialog(
                 null, "El producto esta disponible: ", "Disponibilidad", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,    // null para icono por defecto.
                 new Object[]{"Disponible", "No disponible", "Salir"}, "null");
-        switch (estadoUser){
+        switch (estadoUser) {
             case 1:
-                estado= true;
+                estado = true;
             case 2:
-                estado= false;
+                estado = false;
         }
-        JOptionPane.showMessageDialog(null,estado);
-        double precio = Integer.parseInt(JOptionPane.showInputDialog("Ingresa el precio que va tener el objeto"));
-       // listadeObjetos.set(estadoUser);
-        //POSADA SIGUES VIVO???
+        JOptionPane.showMessageDialog(null, estado);
+        double precio = Double.parseDouble(JOptionPane.showInputDialog("Ingresa el precio que va tener el objeto"));
+        listadeObjetos.get(replaceObjec).setCodigo(codigo);
+        listadeObjetos.get(replaceObjec).setNombre(nombre);
+        listadeObjetos.get(replaceObjec).setPrecio(precio);
+        listadeObjetos.get(replaceObjec).setEstado(estado);
     }
-    static void crearprestamo( Prestamo listadePrestamos, Cliente listadeclientes, Empleado listadempleado){}
-    boolean yes=true;
-    int count=0;
-    /*for(int i=0;i<3;i++){
-        if(String.valueOf(Prestamo[x])=="null"){
-            confirm=false;
-            count=0;
-            break;
-        }
-    }*/
 
-    
+    static void crearprestamo(List<Detalle> detalleList, List<Prestamo> listadePrestamos, List<Objeto> listdeObjeto, Cliente cliente, Empleado empleado) {
+        String opciones ="";
+        for (int i = 0; i < listdeObjeto.size(); i++) {
+            opciones += "Nombre: " + listdeObjeto.get(i).getNombre() + " Precio: " + listdeObjeto.get(i).getPrecio() + " Codigo: " +
+                    listdeObjeto.get(i).getCodigo() + " Estado: " + listdeObjeto.get(i).getEstado() + "\n";
+        }
+        boolean yes = true;
+        int count = 0;
+        int opcion;
+        int producPrest;
+        double precio = 0;
+        Empleado atendioEmpleado = new Empleado();
+        do {
+            opcion = JOptionPane.showOptionDialog(
+                    null,    "Cuantos productos desea prestar: ", "Productos prestamos", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                    new Object[]{1, 2, "Salir"}, "null");
+            switch (opcion) {
+                case 0:
+                    do {
+                        producPrest = JOptionPane.showOptionDialog(
+                                null, opciones + "\n" + "Que producto desea prestar: ", "Productos prestamos", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                                new Object[]{1, 2, 3, "Salir"}, "null");
+                        int diasolicitao = Integer.parseInt(JOptionPane.showInputDialog("cuantos dias desea solicitar el producto"));
+                        int Unidadesprestada = Integer.parseInt(JOptionPane.showInputDialog("Cuantas unidades desea prestar"));
+                        Detalle detalle = new Detalle(listdeObjeto.get(producPrest), Unidadesprestada, diasolicitao, listdeObjeto.get(producPrest).getUnidadesDisp());
+                        detalleList.add(detalle);
+                        precio = listdeObjeto.get(producPrest).getPrecio();
+                        String codigo = JOptionPane.showInputDialog("Ingrese el codigo del prestamo");
+                        Prestamo prestamo = new Prestamo(codigo, empleado, cliente, precio, detalleList);
+                        listadePrestamos.add(prestamo);
+                        System.out.println(prestamo.getDetalles().get(0).getObjeto().getNombre());
+                        break;
+                    } while (producPrest != 4);
+                    break;
+                case 1:
+                    for (int i = 0; i < 2; i++) {
+                        producPrest = JOptionPane.showOptionDialog(
+                                null, opciones + "\n" + "Seleccione el producto: ", "Productos prestamos", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                                new Object[]{1, 2, 3, "Salir"}, "null");
+                        int diasolicitao = Integer.parseInt(JOptionPane.showInputDialog("cuantos dias desea solicitar el producto"));
+                        int Unidadesprestada = Integer.parseInt(JOptionPane.showInputDialog("Cuantas unidades desea prestar"));
+                        Detalle detalle = new Detalle(listdeObjeto.get(producPrest), Unidadesprestada, diasolicitao, listdeObjeto.get(producPrest).getUnidadesDisp());
+                        detalleList.add(detalle);
+                        precio = +listdeObjeto.get(producPrest).getPrecio();
+                        String codigo = JOptionPane.showInputDialog("Ingrese el codigo del prestamo");
+                        Prestamo prestamo = new Prestamo(codigo, empleado, cliente, precio, detalleList);
+                        listadePrestamos.add(prestamo);
+                    }
+                    break;
+            }
+            break;
+        } while (opcion != 3);
+
+    }
+    //
+
+
 }

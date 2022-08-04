@@ -1,23 +1,25 @@
 package co.edu.cue;
 
+import java.util.List;
+
 public class Prestamo {
     private String Codigo;
 
-    private Empleado servicioempleao;
+    private Empleado servicioempleado;
     private Cliente cliente;
     private double valorprestamo;
-    private Detalle detalle[];
+    private List<Detalle> detalles;
 
 
     public Prestamo() {
     }
 
-    public Prestamo(String codigo,  Empleado servicioempleao, Cliente cliente, double valorprestamo, Detalle detalle[]) {
+    public Prestamo(String codigo,  Empleado servicioempleado, Cliente cliente, double valorprestamo, List<Detalle> detalles) {
         Codigo = codigo;
-        this.servicioempleao = servicioempleao;
+        this.servicioempleado = servicioempleado;
         this.cliente = cliente;
         this.valorprestamo = valorprestamo;
-        this.detalle = detalle;
+        this.detalles = detalles;
 
     }
 
@@ -30,11 +32,11 @@ public class Prestamo {
     }
 
     public Empleado getServicioempleao() {
-        return servicioempleao;
+        return servicioempleado;
     }
 
     public void setServicioempleao(Empleado servicioempleao) {
-        this.servicioempleao = servicioempleao;
+        this.servicioempleado = servicioempleao;
     }
 
     public Cliente getCliente() {
@@ -53,12 +55,12 @@ public class Prestamo {
         this.valorprestamo = valorprestamo;
     }
 
-    public Detalle[] getDetalle() {
-        return detalle;
+    public List<Detalle> getDetalles() {
+        return detalles;
     }
 
-    public void setDetalle(Detalle[] detalle) {
-        this.detalle = detalle;
+    public void setDetalles(List<Detalle> detalles) {
+        this.detalles = detalles;
     }
 }
 
