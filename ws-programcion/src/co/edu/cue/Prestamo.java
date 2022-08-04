@@ -62,5 +62,16 @@ public class Prestamo {
     public void setDetalles(List<Detalle> detalles) {
         this.detalles = detalles;
     }
+
+    @Override
+    public String toString() {
+        return "Prestamo{" +
+                "Codigo='" + Codigo + '\'' +
+                ", servicioempleado=" + servicioempleado +
+                ", cliente=" + cliente +
+                ", valorprestamo=" + valorprestamo +
+                ", detalles=" + detalles +
+                '}';
+    }
 }
 

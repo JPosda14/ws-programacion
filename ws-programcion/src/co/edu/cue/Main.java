@@ -1,5 +1,7 @@
 package co.edu.cue;
 
+import com.sun.source.tree.IfTree;
+
 import javax.swing.*;
 import java.lang.invoke.CallSite;
 import java.util.ArrayList;
@@ -11,6 +13,9 @@ public class Main {
         List<Prestamo> listadePrestamos = new ArrayList<>();
         List<Objeto> listadeObjetos = new ArrayList<>();
         List<Detalle> detalleList = new ArrayList<>();
+        List<Cliente> listadeclientes = new ArrayList<>();
+Cliente clientes = new Cliente("1221","CC","Santiago","male","Armenia");
+listadeclientes.add(clientes);
         Objeto objeto1 = new Objeto(1111, "Televisor", true, 30000);
         Objeto objeto2 = new Objeto(2222, "Lavadora", true, 50000);
         Objeto objeto3 = new Objeto(3333, "Pc", true, 45000);
@@ -26,7 +31,12 @@ public class Main {
         listadempleados.add(empleado2);
         listadempleados.add(empleado3);
 
-        List<Cliente> listadeclientes = new ArrayList<>();
+        Detalle detalle = new Detalle(objeto1,2,3, objeto1.getUnidadesDisp());
+        detalleList.add(detalle);
+
+        Prestamo prestamo1 = new Prestamo("1",empleado1,clientes,20000, detalleList);
+        listadePrestamos.add(prestamo1);
+
         //  int opcion = Integer.parseInt(JOptionPane.showInputDialog("Presione "+"\n"+"1"));
 /*        int opcion = Integer.parseInt(JOptionPane.showInputDialog("Que objeto desea prestar"+"\n"+"1: Televisor"+"\n"+"2: Lavadora"+
                 "\n"+"3: Pc"));*/
@@ -193,6 +203,8 @@ public class Main {
                                 }
                                 crearprestamo( detalleList, listadePrestamos, listadeObjetos, clienteAt, empleadoAt);
                                 break;
+                            case 1:
+                                consultarPrestamosLista(listadePrestamos,listadeObjetos);
                         }
                         break;
                     } while (opcionPrestamo != 4);
@@ -223,7 +235,7 @@ public class Main {
     }
 
     static void crearprestamo(List<Detalle> detalleList, List<Prestamo> listadePrestamos, List<Objeto> listdeObjeto, Cliente cliente, Empleado empleado) {
-        String opciones ="";
+        String opciones = "";
         for (int i = 0; i < listdeObjeto.size(); i++) {
             opciones += "Nombre: " + listdeObjeto.get(i).getNombre() + " Precio: " + listdeObjeto.get(i).getPrecio() + " Codigo: " +
                     listdeObjeto.get(i).getCodigo() + " Estado: " + listdeObjeto.get(i).getEstado() + "\n";
@@ -236,7 +248,7 @@ public class Main {
         Empleado atendioEmpleado = new Empleado();
         do {
             opcion = JOptionPane.showOptionDialog(
-                    null,    "Cuantos productos desea prestar: ", "Productos prestamos", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                    null, "Cuantos productos desea prestar: ", "Productos prestamos", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                     new Object[]{1, 2, "Salir"}, "null");
             switch (opcion) {
                 case 0:
@@ -274,9 +286,24 @@ public class Main {
             }
             break;
         } while (opcion != 3);
-
-    }
-    //
+        };
 
 
-}
+
+        static void consultarPrestamosLista( List<Prestamo> listadePrestamos, List<Objeto> listdeObjeto){
+            String codigosolicit="";
+            Prestamo[] arrayp =new  Prestamo[listadePrestamos.size()];
+            int x = 0;
+            for (Prestamo prestamo:listadePrestamos) {
+                arrayp[x] = prestamo;
+                x++;
+            }
+            String codigo = JOptionPane.showInputDialog ("Ingrese el codigo del producto prestado");
+
+            for (Prestamo prestamo: arrayp){
+                if (codigo.equals(prestamo.getCodigo())){
+                    JOptionPane.showMessageDialog(null,prestamo.toString());
+                }
+            }
+
+    }}
