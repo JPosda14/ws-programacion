@@ -1,5 +1,7 @@
 package co.edu.cue;
 
+import com.sun.source.tree.IfTree;
+
 import javax.swing.*;
 import java.lang.invoke.CallSite;
 import java.util.ArrayList;
@@ -71,7 +73,7 @@ public class Main {
                     do {
                         opcionProductos = JOptionPane.showOptionDialog(
                                 null, "Ingrese lo que quiere hacer: ", "Opciones de productos", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,    // null para icono por defecto.
-                                new Object[]{"Consultar producto por codigo", "Consultar prestamos por codigo", "Consultar cantidad total de unidades prestadas", "Remplazar objeto","Consultar cantidades", "Salir"}, "null");
+                                new Object[]{"Consultar producto por codigo", "Consultar prestamos por codigo", "Consultar cantidad total de unidades prestadas", "Consultar unidades prestadas","Remplazar objeto", "Salir"}, "null");
                         switch (opcionProductos) {
                             case 0:
                                 if (listadeObjetos.size() < 3) {
@@ -143,7 +145,7 @@ public class Main {
                             case 4:
                                 //Prestamo prestamo = new Prestamo()
                                 int canti = 0;
-                                if (listadePrestamos.size() == 0) {
+                                if (listadePrestamos.size() != 0) {
                                     for (Prestamo prestam : listadePrestamos) {
                                         //System.out.println(listadePrestamos.get(j).getDetalle()[1].getObjeto().getNombre());
                                         List<Detalle> detalles = prestam.getDetalles();
@@ -152,7 +154,9 @@ public class Main {
                                         }
                                     }
                                 }
+                                break;
                         }
+                        break;
                     } while (opcionProductos != 4);
                 case 3:
                     Empleado empleadoAt = new Empleado();
@@ -190,15 +194,9 @@ public class Main {
                                     }
                                 }
                                 crearprestamo( detalleList, listadePrestamos, listadeObjetos, clienteAt, empleadoAt);
-                                for (Prestamo pre:listadePrestamos
-                                     )
-                                {
-                                    System.out.println(pre.toString());
-
-                                }
-
+                                break;
                         }
-
+                        break;
                     } while (opcionPrestamo != 4);
             }
         } while (opcion != 4);

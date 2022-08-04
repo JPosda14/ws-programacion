@@ -37,10 +37,6 @@ public class Objeto  {
         this.nombre = nombre;
     }
 
-    public int getUnidadesDisp() {
-        return unidadesDisp;
-    }
-
     public void setUnidadesDisp(int unidadesDisp) {
         this.unidadesDisp = unidadesDisp;
     }
